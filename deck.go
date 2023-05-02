@@ -9,17 +9,19 @@ import (
 	"time"
 )
 
-type deck []string
+type deck []card
 
 func newDeck() deck {
 	cards := deck{}
 
 	cardSuits := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
-	cardValues := []string{"Ace", "Two", "Three", "Four"}
+	cardNames := []string{"Ace", "Two", "Three", "Four"}
+	cardValues := []int{1, 2, 3, 4}
 
 	for _, suit := range cardSuits {
-		for _, value := range cardValues {
-			cards = append(cards, value+" of "+suit)
+		for i, name := range cardNames {
+			newCard := card{value: cardValues[i], name: name + " of " + suit}
+			cards = append(cards, newCard)
 		}
 	}
 
@@ -27,9 +29,12 @@ func newDeck() deck {
 }
 
 func (d deck) print() {
-	for i, card := range d {
-		fmt.Println(i, card)
+	fmt.Println("==================================")
+	for _, card := range d {
+		fmt.Printf("%+v", card)
 	}
+	fmt.Println("==================================")
+
 }
 
 func deal(d deck, handSize int) (deck, deck) {
@@ -37,7 +42,26 @@ func deal(d deck, handSize int) (deck, deck) {
 }
 
 func (d deck) toString() string {
-	return strings.Join([]string(d), ",")
+	cards := []string{}
+
+	for _, card := range d {
+		s := card.toString()
+		cards = append(cards, s)
+	}
+
+	return strings.Join([]string(cards), ",")
+}
+
+func toDeck(s string) deck {
+	cards := strings.Split(string(s), ",")
+	deck := deck{}
+
+	for _, card := range cards {
+		c := toCard(card)
+		deck = append(deck, c)
+	}
+
+	return deck
 }
 
 func (d deck) saveToFile(fileName string) error {
@@ -52,7 +76,7 @@ func deckFromFile(fileName string) deck {
 		os.Exit(1)
 	}
 
-	s := strings.Split(string(bs), ",")
+	s := toDeck(string(bs))
 	return deck(s)
 }
 
