@@ -24,10 +24,6 @@ To run the app in `test` mode run `go test`
 
 This will create an executable file in the project directory.
 
-## Usage
-
-The application provides a CLI interface for interacting with the card deck.
-
 ## License
 
 This project is licensed under the MIT License
