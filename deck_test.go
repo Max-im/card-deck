@@ -14,16 +14,26 @@ func TestNewDeck(t *testing.T) {
 		t.Errorf("Expected deck length %v but got %v", expectedLen, len(d))
 	}
 
-	var firstCard = "Ace of Spades"
+	var firstCardName = "Ace of Spades"
+	var firstCardVal = 1
 
-	if d[0] != firstCard {
-		t.Errorf("Expected first card %v but got %v", firstCard, d[0])
+	if d[0].name != firstCardName {
+		t.Errorf("Expected first card name %v but got %v", firstCardName, d[0].name)
 	}
 
-	var lastCard = "Four of Clubs"
+	if d[0].value != firstCardVal {
+		t.Errorf("Expected first card value %v but got %v", firstCardVal, d[0].value)
+	}
 
-	if d[len(d)-1] != lastCard {
-		t.Errorf("Expected first card %v but got %v", lastCard, d[len(d)-1])
+	var lastCardName = "Four of Clubs"
+	var lastCardValue = 4
+
+	if d[len(d)-1].name != lastCardName {
+		t.Errorf("Expected first card name %v but got %v", lastCardName, d[len(d)-1].name)
+	}
+
+	if d[len(d)-1].value != lastCardValue {
+		t.Errorf("Expected first card value %v but got %v", lastCardValue, d[len(d)-1].value)
 	}
 }
 
